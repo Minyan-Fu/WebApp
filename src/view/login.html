@@ -1,0 +1,75 @@
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Devicepage</title>
+	<link rel="stylesheet" type="text/css" href="style.css">
+	<link rel="stylesheet" type="text/css" href="routine.css">
+  <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.9/angular-material.min.css">
+</head>
+
+<body>
+<div class="hamburger-modal none" id="hamburger-modal" >
+      <div class="menu-of-hamburger" id="hamburger-boundary">
+        <div style="position: relative; left: 16%; top: 25px;">
+        	<div class="hamburger" id="hamburger" onclick="hamburgerExpand(this)" data-close="close">
+            	fanghui
+        	</div>
+        </div>
+        <div class="hamburger-links">
+          <a href="hello.html">Home</a>
+          <a href="device.html">Device</a>
+        	<a href="device.html">Routine</a>
+        </div>
+        <hr>
+        <div class="hamburger-links-bottom">
+          <a href="">Log In</a>
+        </div>
+      </div>
+    </div>
+  <div class="header-background">
+    <div class="top-icons">
+      <div class="hamburger" id="hamburger" onclick="hamburgerExpand(this)">
+        zuobian
+      </div>
+    </div>
+    <div class="logo-container" id="appHeader">
+    zhongjian 
+    </div>
+  </div>
+  <script src="../model/toolbar.js"></script>
+  <script src="../controller/toolbarCtlr.js"></script>
+
+
+
+<div ng-app="Demo" ng-controller="DemoCtrl" layout="column" layout-padding ng-cloak>
+  <br/>
+  <md-content class="md-no-momentum">
+    <md-input-container class="md-icon-float md-block">
+      <!-- Use floating label instead of placeholder -->
+      <label>Name</label>
+      <md-icon md-svg-src="img/icons/ic_person_24px.svg" class="name" aria-label="Name"></md-icon>
+      <input ng-model="user.name" type="text">
+    </md-input-container>
+
+    <md-input-container md-no-float class="md-block">
+      <md-icon md-svg-src="img/icons/ic_phone_24px.svg"></md-icon>
+      <input ng-model="user.phone" type="text" placeholder="Phone Number" aria-label="Phone Number">
+	</md-input-container>
+	<md-button ng-click="login()" flex-offset="30" class="md-raised"  >
+           Login
+	</md-button>
+	<md-button ng-click="register()" class="md-raised" >
+            Register
+	</md-button>
+  </md-content>
+</div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.2/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.2/angular-animate.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.2/angular-aria.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.2/angular-messages.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.9/angular-material.min.js"></script>
+    <script src="../controller/loginCtlr.js"></script>
+  </body>
