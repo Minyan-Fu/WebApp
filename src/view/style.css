@@ -1,0 +1,147 @@
+*{
+  padding: 0;
+  margin: 0;
+}
+#map{
+   position: absolute; 
+   top: 20%; 
+   bottom: 0; 
+   width: 100%; }
+   
+body{
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
+}
+/* Header container */
+.header-background{
+  width: 100%;
+  height: 20%;
+  background: #512DA8;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: all 0.3s ease;
+}
+
+/* Icons */
+
+.hamburger{
+  position: relative;
+  z-index: 99999;
+  height: 30px;
+  width: 24.5px;
+}
+.hamburger:hover{
+  cursor: pointer;
+}
+.hamburger-modal{
+  position: fixed;
+  z-index: 9999;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  box-shadow: 2px 1px 10px rgba(0, 0, 0, 0.25);
+}
+.menu-of-hamburger{
+  background: #130f40;
+  background: url("assets/bg-attempt.png");
+  background-size: cover;
+  background-position: 90%;
+  background: blue;
+  width: 70%;
+  animation: slide-in-left 0.2s ease;
+  position: relative;
+  box-shadow: 5px 1px 10px rgba(0, 0, 0, 0.25);
+
+}
+@keyframes slide-in-left {
+  0%{
+    right: 20%;
+  }
+  100%{
+    right: 0%;
+  }
+}
+.menu-of-hamburger-inactive{
+  box-shadow: none;
+  animation: slide-out 0.2s ease;
+
+}
+@keyframes slide-out {
+  0%{
+    right: 0%;
+  }
+  100%{
+    right: 70%;
+  }
+}
+.menu-of-hamburger hr{
+  border-style: none;
+  height: 10px;
+  width: 70%;
+}
+.hamburger-links{
+  position: relative;
+  padding-left:16%;
+  top: 40px;
+  display: flex;
+  flex-direction: column;
+}
+.hamburger-links a{
+  text-decoration: none;
+  color: white;
+  margin-top: 30px;
+  font-size: 1.3rem;
+  font-weight: 500;
+  letter-spacing: 1px;
+}
+.hamburger-links-bottom{
+  padding-left:16%;
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  bottom: 10%;
+}
+.hamburger-links-bottom a{
+  text-decoration: none;
+  color: white;
+  margin-top: 30px;
+  font-size: 1.3rem;
+  font-weight: 500;
+  letter-spacing: 1px;
+}
+
+.top-icons{
+  position: relative;
+  z-index: 3;
+  top: 30%;
+  width: 78%;
+  margin-top: 0;
+  display: flex;
+  justify-content: space-between;
+}
+
+/* Logoooos */
+.logo-container{
+  position: relative;
+  width: 78%;
+  text-align: center;
+  padding-bottom: 50px;
+}
+
+/* CSS STATES */
+.animate{
+  -webkit-transition: all ease 0.05s;
+  -o-transition: all ease 0.05s;
+  transition: all ease 0.05s;
+}
+.animateSlow{
+  -webkit-transition: all linear 0.3s;
+  -o-transition: all linear 0.3s;
+  transition: all linear 0.3s;
+}
+.none{
+  display: none;
+}
+
