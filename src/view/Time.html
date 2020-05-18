@@ -1,0 +1,54 @@
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Devicepage</title>
+	<link rel="stylesheet" type="text/css" href="style.css">
+  <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.9/angular-material.min.css">
+</head>
+<body>
+  <div class="header-background">
+    <div class="top-icons">
+      <div class="hamburger" id="hamburger">
+        <a href="device.html">back</a>
+      </div>
+    </div>
+    <div class="logo-container" id="appHeader">
+    logo 
+    </div>
+  </div>
+  <script src="../model/toolbar.js"></script>
+  <script src="../controller/toolbarCtlr.js"></script>
+
+
+
+  <div ng-app="timeDemo" ng-controller="AppCtrl">
+	  <md-content style="overflow: auto; height: 80%;" class="md-padding" layout-padding="auto">
+      	<div layout="column">
+    		<div flex-gt-xs="">
+            <h4>start time</h4>
+      <input type="datetime-local" step="1" id="exampleInput" name="input" ng-model="starttime"
+      placeholder="yyyy-MM-ddTHH:mm:ss" min="2020-01-01T00:00:00" max="2020-06-08T00:00:00" required />
+			</div>
+			
+
+    	<div flex-gt-xs="">
+      		<h4>end time</h4>
+      		<input type="datetime-local" step="1" id="exampleInput" name="input" ng-model="endtime"
+      placeholder="yyyy-MM-ddTHH:mm:ss" min="2020-01-01T00:00:00" max="2020-06-08T00:00:00" required />
+			</div>
+    </div>
+    <div>
+    <md-button href="deviceMap.html" ng-click="getPeriod()">Open</md-button>
+    </div>
+  </md-content>
+</div>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.2/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.2/angular-animate.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.2/angular-aria.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.2/angular-messages.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.9/angular-material.min.js"></script>
+    <script src="../controller/timeDemo.js"></script>
+  </body>
+</html>

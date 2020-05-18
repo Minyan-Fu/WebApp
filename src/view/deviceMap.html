@@ -3,14 +3,17 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta http-equiv="X-UA-Compatible" content="ie=edge">
-	<title>Devicepage</title>
-	<link rel="stylesheet" type="text/css" href="style.css">
-	<link rel="stylesheet" type="text/css" href="routine.css">
+	<title>Homepage</title>
+	<link rel="stylesheet" type="text/css" href="device.css">
+	  <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.9/angular-material.min.css">
+	<script src="https://api.mapbox.com/mapbox-gl-js/v1.10.0/mapbox-gl.js"></script>
+	<link href="https://api.mapbox.com/mapbox-gl-js/v1.10.0/mapbox-gl.css" rel="stylesheet" />
   <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.9/angular-material.min.css">
 </head>
 
 <body>
-<div class="hamburger-modal none" id="hamburger-modal" >
+  
+    <div class="hamburger-modal none" id="hamburger-modal" >
       <div class="menu-of-hamburger" id="hamburger-boundary">
         <div style="position: relative; left: 16%; top: 25px;">
         	<div class="hamburger" id="hamburger" onclick="hamburgerExpand(this)" data-close="close">
@@ -24,8 +27,7 @@
         </div>
         <hr>
         <div class="hamburger-links-bottom">
-          <a href="">Sign Up</a>
-          <a href="">Log In</a>
+          <a href="login.html">Log In</a>
         </div>
       </div>
     </div>
@@ -36,46 +38,31 @@
       </div>
     </div>
     <div class="logo-container" id="appHeader">
-    logo 
+    logo
     </div>
   </div>
   <script src="../model/toolbar.js"></script>
   <script src="../controller/toolbarCtlr.js"></script>
 
-
-
-  <div ng-app="cardDemo1" ng-controller="AppCtrl" data-ng-init="load()">
-	  <md-content style="overflow: auto; height: 80%;" class="md-padding" layout-padding="auto">
-      <div class="cardbase" ng-repeat="x in names" layout="column">
-
-      <md-card md-theme="{{ showDarkTheme ? 'dark-grey' : 'default' }}" md-theme-watch>
-        <md-card-title>
-          <md-card-title-text>
-            <span class="md-headline" ng-cloak>{{x.DeviceName}}</span>
-            <span class="md-subhead" ng-cloak>{{x.DeviceId}}</span>
-          </md-card-title-text>
-          <md-card-title-media> 
-            <div class="md-media-lg card-media"></div>
-          </md-card-title-media>
-        </md-card-title>
-        <md-card-actions layout="row" layout-align="end center">
-          <md-button ng-click="chooseTime(x)" href="Time.html">Track</md-button>
-          <md-button>Delete</md-button>
-        </md-card-actions>
-      </md-card>
-    </div>
-        <md-button ng-click="show()" class="md-raised" class="md-button">
-           refresh
-        </md-button>
-        <md-button ng-click="addDevice()" class="md-raised" class="md-button">
-           add
+    <div ng-app="saveBotton" ng-controller="SaveCtrl">
+	  <md-content style="height: 15%;" class="md-padding">
+        <md-button  style="min-width: 1%;" ng-click="show()" class="md-raised">
+           save
         </md-button>
   </md-content>
 </div>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.2/angular.min.js"></script>
+
+ 
+
+  <div id="map"></div>
+  	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.2/angular.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.2/angular-animate.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.2/angular-aria.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.2/angular-messages.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.9/angular-material.min.js"></script>
-    <script src="../controller/cardview.js"></script>
-  </body>
+    <script src="../controller/deviceMap.js"></script>
+    <script src="../controller/saveRoutine.js"></script>
+
+ </body>
+
+</html>
