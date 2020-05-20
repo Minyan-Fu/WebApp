@@ -28,7 +28,26 @@ angular.module('saveBotton', ['ngMaterial'])
       },function error(response){
         console.log("error");
       });
-	}
+	};
+
+	$scope.save=function(){
+		var DeviceId=localStorage.getItem("nowId");
+		var UserId=localStorage.getItem("userId");
+		startTime1=localStorage.getItem("starttime");
+		endTime1=localStorage.getItem("endtime");
+		startTime=$filter("date")(startTime1, "yyyy-MM-dd HH:mm:ss");
+		endTime=$filter("date")(endTime1, "yyyy-MM-dd HH:mm:ss");
+		var routineName=localStorage.getItem("routineName");
+		if (routineName==null){
+			routineName="routine of device id:"+DeviceId;
+		}
+		var getData = "?deviceId="+DeviceId+"&"+"userId="+UserId+"&"+"startTime="+startTime+"&"+"endTime="+endTime
+		+"&"+"routineName="+routineName;
+      	var url = "http://192.168.137.1:8080/DBCon/addRoutinesServlet" + getData;
+     	 $http.get(url).then(function success(response){
+		console.log(response.data);
+		});
+	};
 
 
 mapboxgl.accessToken = 'pk.eyJ1IjoibWlueWFuZnUiLCJhIjoiY2s3MHF6bGx1MDAwODNsdWc4NWpwOGk3ZiJ9.-JNfNcvmZrtGg7MWh0F4fw';

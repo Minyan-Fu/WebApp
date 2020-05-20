@@ -35,10 +35,18 @@
 
     	<div flex-gt-xs="">
       		<h4>end time</h4>
-      		<input type="datetime-local" step="1" id="exampleInput" name="input" ng-model="endtime"
+      <input type="datetime-local" step="1" id="exampleInput" name="input" ng-model="endtime"
       placeholder="yyyy-MM-ddTHH:mm:ss" min="2020-01-01T00:00:00" max="2020-06-08T00:00:00" required />
+      </div>
+      
+      <div flex-gt-xs="">
+            <h4>give name(not a must)</h4>
+      <input type="text" step="1" id="exampleInput" name="input" ng-model="name"
+      placeholder="only number or character"  />
 			</div>
     </div>
+
+    
     <div>
     <md-button href="deviceMap.html" ng-click="getPeriod()">Open</md-button>
     </div>

@@ -7,9 +7,11 @@ angular.module('timeDemo', ['ngMaterial'])
   $scope.getPeriod=function(){
    var starttime=$scope.starttime.getTime();
    var endtime=$scope.endtime.getTime();
+   var name=$scope.name;
    localStorage.setItem("starttime",starttime);
    localStorage.setItem("endtime",endtime);
-  console.log(DeviceId,UserId,starttime,endtime);
+   localStorage.setItem("routineName",name);
+  console.log(DeviceId,UserId,starttime,endtime,name);
   }
 
 })
