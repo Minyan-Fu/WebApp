@@ -4,6 +4,7 @@
 {
   "version": "0.2.0",
   "configurations": [
+
     {
       "name": "Launch Chrome 127.0.0.1",
       "type": "chrome",
@@ -43,6 +44,20 @@
       "port": 9215,
       "webRoot": "${workspaceFolder}",
       "url": "http://127.0.0.1:64041/p/WebApp/src/view/routineDetails.html?_cmAuth\u003dsrjfqgvstx"
-    }
-  ]
+    }  
+,{
+  "name": "Launch Chrome 127.0.0.1 (5)",
+  "type": "chrome",
+  "request": "launch",
+  "port": 9222,
+  "webRoot": "${workspaceFolder}",
+  "url": "http://127.0.0.1:64041/p/WebApp/src/view/login.html?_cmAuth\u003dsrjfqgvstx"}
+,{
+  "name": "Launch Chrome 127.0.0.1 (6)",
+  "type": "chrome",
+  "request": "launch",
+  "port": 9242,
+  "webRoot": "${workspaceFolder}",
+  "url": "http://127.0.0.1:64041/p/WebApp/src/view/device.html?_cmAuth\u003dsrjfqgvstx"
+}]
 }

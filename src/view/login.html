@@ -2,67 +2,73 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<meta http-equiv="X-UA-Compatible" content="ie=edge">
 	<title>Devicepage</title>
 	<link rel="stylesheet" type="text/css" href="style.css">
-	<link rel="stylesheet" type="text/css" href="routine.css">
   <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.9/angular-material.min.css">
 </head>
 
 <body>
-<div class="hamburger-modal none" id="hamburger-modal" >
-      <div class="menu-of-hamburger" id="hamburger-boundary">
-        <div style="position: relative; left: 16%; top: 25px;">
-        	<div class="hamburger" id="hamburger" onclick="hamburgerExpand(this)" data-close="close">
-            	back
+<div class="toolbar-model none" id="toolbar-model" >
+      <div class="nav-menu">
+        <div style="position: relative; left: 25px; top: 25px;">
+        	<div class="nav-button" id="nav-button" onclick="navExpand(this)" data-close="close">
+            	<image src="../pictures/back.png" class="back-button"></image>
         	</div>
         </div>
-        <div class="hamburger-links">
-          <a href="hello.html">Home</a>
+        <div class="nav-list">
           <a href="device.html">Device</a>
         	<a href="routine.html">Routine</a>
         </div>
-        <hr>
-        <div class="hamburger-links-bottom">
-          <a href="">Log In</a>
+        <div class="nav-list-bottom">
+          <a href="login.html" οnclick="removeMemory()">Log out</a>
+          <script>
+          function myFunction() {
+          localStorage.clear();
+          }
+          </script>
         </div>
       </div>
     </div>
-  <div class="header-background">
-    <div class="top-icons">
-      <div class="hamburger" id="hamburger" onclick="hamburgerExpand(this)">
-        left-nav
+  <div class="header-nav">
+    <div class="toolbarNames">
+      <div class="nav-button" id="nav-button" onclick="navExpand(this)">
+        <image src="../pictures/nav.png" class="nav-pic"></image>
+      </div>
+       <div class="pageName" id="appHeader">
+        Login
       </div>
     </div>
-    <div class="logo-container" id="appHeader">
-    logo
-    </div>
   </div>
-  <script src="../model/toolbar.js"></script>
   <script src="../controller/toolbarCtlr.js"></script>
 
 
 
-<div ng-app="Demo" ng-controller="DemoCtrl" layout="column" layout-padding ng-cloak>
+<div  novalidate ng-app="LoginPanel" ng-controller="LoginPanelCtrl" layout="column" layout-padding ng-cloak>
   <br/>
-  <md-content class="md-no-momentum">
+  <md-content class="md-no-momentum" style="background-color:#FFF9C4;box-shadow: 2px 1px 10px rgba(0.25, 0, 0, 0.25);width:280px;margin:0 auto;">
     <md-input-container class="md-icon-float md-block">
-      <!-- Use floating label instead of placeholder -->
       <label>Name</label>
-      <input ng-model="user.name" type="text">
+      <input name="name" ng-model="user.name" type="text" required>
+      <span ng-if="checkData.nameCheck=='m'">name cannot be null</span>
     </md-input-container>
 
     <md-input-container md-no-float class="md-block">
-      <input ng-model="user.phone" type="text" placeholder="Phone Number" aria-label="Phone Number">
+      <label>Password</label>
+      <input name="password" ng-model="user.password" type="text" required>
+      <span ng-if="checkData.passwordCheck=='m'">password cannot be null</span>
+      <br/><br/><br/>
+      <p id="p2" style="text-align: center;font-family: 'Times New Roman', Times, serif;color: #BF360C;">Welcome!</p>
   </md-input-container>
-	<md-button ng-click="login()" flex-offset="30" class="md-raised"  >
+  <div style="vertical-align:middle;display:table-cell;">
+	<md-button ng-click="login()"  class="md-raised" style="left: 8%;background-color:#F9A825;color:white;">
            Login
 	</md-button>
-	<md-button ng-click="register()" class="md-raised" >
+	<md-button ng-click="register()" class="md-raised" style="left: 20%;background-color:#F9A825;color:white;">
             Register
   </md-button>
+  </div>
   <div class="ng-hide" ng-hide="visible">
-  <p ng-cloak>Hello {{user.name}}</p>
+  <p id="usermes" style="text-align: center;color: #BF360C;font-family: 'Times New Roman', Times, serif;" ng-cloak>Hello {{user.name}}. Please wait for jumping</p>
   </div>
   </md-content>
 </div>

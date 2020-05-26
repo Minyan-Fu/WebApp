@@ -6,14 +6,18 @@ angular.module('saveBotton', ['ngMaterial'])
 
 		startTime1=localStorage.getItem("starttime");
 		endTime1=localStorage.getItem("endtime");
+		console.log(DeviceId,UserId);
+		console.log(startTime1,endTime1);
 		startTime=$filter("date")(startTime1, "yyyy-MM-dd HH:mm:ss");
 		endTime=$filter("date")(endTime1, "yyyy-MM-dd HH:mm:ss");
 		console.log(DeviceId,UserId,startTime,endTime);
-		var getData = "?startTime="+startTime+"&"+"endTime="+endTime;
+		var getData = "?startTime="+startTime+"&"+"endTime="+endTime+"&deviceId="+DeviceId;
       	var url = "http://192.168.137.1:8080/DBCon/showRoutineServlet" + getData;
      	 $http.get(url).then(function success(response){
 		console.log(response.data);
-		
+		if(response.data==""){
+			localStorage.setItem('coordinates',null);
+		}else{
 		var string=response.data.replace("[","").replace("]","");
 		var array=string.split(",");
 		console.log(array);
@@ -25,9 +29,11 @@ angular.module('saveBotton', ['ngMaterial'])
 		localStorage.setItem('coordinates',JSON.stringify(array3));
 		}
 		console.log(array3);
+	}
       },function error(response){
-        console.log("error");
-      });
+		console.log("error");
+		localStorage.setItem('coordinates',JSON.stringify([]));
+	  });
 	};
 
 	$scope.save=function(){
@@ -49,6 +55,13 @@ angular.module('saveBotton', ['ngMaterial'])
 		});
 	};
 
+})
+.config(function($mdThemingProvider) {
+  $mdThemingProvider.theme('dark-grey').backgroundPalette('grey').dark();
+  $mdThemingProvider.theme('dark-orange').backgroundPalette('orange').dark();
+  $mdThemingProvider.theme('dark-purple').backgroundPalette('deep-purple').dark();
+  $mdThemingProvider.theme('dark-blue').backgroundPalette('blue').dark();
+});
 
 mapboxgl.accessToken = 'pk.eyJ1IjoibWlueWFuZnUiLCJhIjoiY2s3MHF6bGx1MDAwODNsdWc4NWpwOGk3ZiJ9.-JNfNcvmZrtGg7MWh0F4fw';
 var map = new mapboxgl.Map({
@@ -84,12 +97,5 @@ map.addLayer({
 'line-width': 8
 }
 });
-});
-})
-.config(function($mdThemingProvider) {
-  $mdThemingProvider.theme('dark-grey').backgroundPalette('grey').dark();
-  $mdThemingProvider.theme('dark-orange').backgroundPalette('orange').dark();
-  $mdThemingProvider.theme('dark-purple').backgroundPalette('deep-purple').dark();
-  $mdThemingProvider.theme('dark-blue').backgroundPalette('blue').dark();
 });
 

@@ -26,11 +26,12 @@ angular.module('cardDemo2', ['ngMaterial'])
   };
 
   $scope.chooseRoutine=function(y){
-    console.log(y.DeviceId);
     var routineId=y.DeviceId.toString();
+    var deviceId=y.RoutineName;
+    console.log(y.RoutineName);
     var routineId2=routineId.replace(")","").split("(");
     localStorage.setItem("routineId",routineId2[1]);
-    console.log(localStorage.getItem("routineId"));
+    localStorage.setItem("nowId",deviceId);
   };
 
 })

@@ -1,9 +1,10 @@
-angular.module('timeDemo', ['ngMaterial'])
+ angular.module('timeDemo', ['ngMaterial'])
 
 .controller('AppCtrl', function($scope) {
   var DeviceId=localStorage.getItem("nowId");
   var UserId=localStorage.getItem("userId");
   console.log(DeviceId,UserId);
+
   $scope.getPeriod=function(){
    var starttime=$scope.starttime.getTime();
    var endtime=$scope.endtime.getTime();
@@ -11,7 +12,9 @@ angular.module('timeDemo', ['ngMaterial'])
    localStorage.setItem("starttime",starttime);
    localStorage.setItem("endtime",endtime);
    localStorage.setItem("routineName",name);
-  console.log(DeviceId,UserId,starttime,endtime,name);
+   console.log(DeviceId,UserId,starttime,endtime,name);
+   console.log(localStorage.getItem("starttime"),localStorage.getItem("endtime"));
+   window.location.href='deviceMap.html';    
   }
 
 })

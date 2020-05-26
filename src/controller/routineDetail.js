@@ -1,8 +1,10 @@
 angular.module('showBotton', ['ngMaterial'])
 .controller('SaveCtrl', function($scope,$http,$filter,$window) {
+	
 	$scope.show=function(){
 		var routineId=localStorage.getItem("routineId");
 		var UserId=localStorage.getItem("userId");
+		var deviceId=localStorage.getItem("nowId");
 
 		var getData = "?routineId="+routineId;
       	var url = "http://192.168.137.1:8080/DBCon/chooseTimeServlet" + getData;
@@ -16,7 +18,7 @@ angular.module('showBotton', ['ngMaterial'])
 			 startTime=$filter("date")(startTime1, "yyyy-MM-dd HH:mm:ss");
 			 endTime=$filter("date")(endTime1, "yyyy-MM-dd HH:mm:ss");
 
-		var getData = "?startTime="+startTime+"&"+"endTime="+endTime;
+		var getData = "?startTime="+startTime+"&"+"endTime="+endTime+"&deviceId="+deviceId;
       	var url = "http://192.168.137.1:8080/DBCon/showRoutineServlet" + getData;
      	 $http.get(url).then(function success(response){
 		console.log(response.data);
@@ -82,6 +84,7 @@ map.on('load', function () {
 		}
 	});
 
+	$scope.add=function(){
 	var marker = new mapboxgl.Marker({
 		draggable: true
 	})
@@ -95,6 +98,7 @@ map.on('load', function () {
 	}
  
 	marker.on('dragend', onDragEnd);
+	};
 	
 });
 })

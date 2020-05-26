@@ -2,40 +2,42 @@
   padding: 0;
   margin: 0;
 }
-#map{
-   position: absolute; 
-   top: 20%; 
-   bottom: 0; 
-   width: 100%; }
+
    
 body{
   height: 100vh;
   width: 100%;
   overflow: hidden;
+  background-color: #FFFDE7;
 }
+
 /* Header container */
-.header-background{
+.header-nav{
   width: 100%;
   height: 20%;
-  background: #512DA8;
-  display: flex;
+  background: #F57F17;
+  display:inline-flex;
+  left: 25px; top: 25px;
   flex-direction: column;
   align-items: center;
   transition: all 0.3s ease;
 }
 
-/* Icons */
-
-.hamburger{
-  position: relative;
-  z-index: 99999;
-  height: 30px;
-  width: 24.5px;
+#back-button{
+  height: 15vw;
+  width: 15vw;
 }
-.hamburger:hover{
+#nav-pic{
+  position: fixed;
+}
+.nav-button{
+  height: 15vw;
+  width: 15vw;
+}
+.nav-button:hover{
   cursor: pointer;
 }
-.hamburger-modal{
+.toolbar-model{
   position: fixed;
   z-index: 9999;
   width: 100%;
@@ -43,13 +45,12 @@ body{
   display: flex;
   box-shadow: 2px 1px 10px rgba(0, 0, 0, 0.25);
 }
-.menu-of-hamburger{
-  background: #130f40;
-  background: url("assets/bg-attempt.png");
+
+.nav-menu{
+  background: #FFF9C4;
   background-size: cover;
   background-position: 90%;
-  background: blue;
-  width: 70%;
+  width: 270px;
   animation: slide-in-left 0.2s ease;
   position: relative;
   box-shadow: 5px 1px 10px rgba(0, 0, 0, 0.25);
@@ -63,7 +64,7 @@ body{
     right: 0%;
   }
 }
-.menu-of-hamburger-inactive{
+.nav-menu-inactive{
   box-shadow: none;
   animation: slide-out 0.2s ease;
 
@@ -76,58 +77,52 @@ body{
     right: 70%;
   }
 }
-.menu-of-hamburger hr{
-  border-style: none;
-  height: 10px;
-  width: 70%;
-}
-.hamburger-links{
+.nav-list{
   position: relative;
-  padding-left:16%;
-  top: 40px;
+  padding-left:20%;
+  top: 20px;
   display: flex;
   flex-direction: column;
 }
-.hamburger-links a{
+.nav-list a{
   text-decoration: none;
-  color: white;
+  color: #F57F17;
   margin-top: 30px;
   font-size: 1.3rem;
   font-weight: 500;
   letter-spacing: 1px;
+  font-family: 'Times New Roman', Times, serif
 }
-.hamburger-links-bottom{
-  padding-left:16%;
+.nav-list-bottom{
+  padding-left:20%;
   display: flex;
   flex-direction: column;
   position: absolute;
-  bottom: 10%;
+  bottom: 30px;
+  font-family: 'Times New Roman', Times, serif
 }
-.hamburger-links-bottom a{
+.nav-list-bottom a{
   text-decoration: none;
-  color: white;
+  color:#F9A825;
   margin-top: 30px;
   font-size: 1.3rem;
   font-weight: 500;
   letter-spacing: 1px;
 }
 
-.top-icons{
+.toolbarNames{
   position: relative;
-  z-index: 3;
-  top: 30%;
-  width: 78%;
+  top: 32%;
+  width: 85%;
   margin-top: 0;
-  display: flex;
-  justify-content: space-between;
+  display:inline-flex;
 }
 
 /* Logoooos */
-.logo-container{
-  position: relative;
-  width: 78%;
-  text-align: center;
-  padding-bottom: 50px;
+.pageName{
+  font-size: 30;
+  color:white;
+  font-family: 'Times New Roman', Times, serif;
 }
 
 /* CSS STATES */

@@ -10,44 +10,49 @@
 </head>
 
 <body>
-<div class="hamburger-modal none" id="hamburger-modal" >
-      <div class="menu-of-hamburger" id="hamburger-boundary">
-        <div style="position: relative; left: 16%; top: 25px;">
-        	<div class="hamburger" id="hamburger" onclick="hamburgerExpand(this)" data-close="close">
-            	back
+<div class="toolbar-model none" id="toolbar-model" >
+      <div class="nav-menu">
+        <div style="position: relative; left: 25px; top: 25px;">
+        	<div class="nav-button" id="nav-button" onclick="navExpand(this)" data-close="close">
+            	<image src="../pictures/back.png" class="back-button"></image>
         	</div>
         </div>
-        <div class="hamburger-links">
-          <a href="hello.html">Home</a>
+        <div class="nav-list">
           <a href="device.html">Device</a>
         	<a href="routine.html">Routine</a>
         </div>
-        <hr>
-        <div class="hamburger-links-bottom">
-          <a href="login.html">Log In</a>
+        <div class="nav-list-bottom">
+          <a href="login.html" οnclick="removeMemory()">Log out</a>
+          <script>
+          function myFunction() {
+          localStorage.clear();
+          }
+          </script>
         </div>
       </div>
     </div>
-  <div class="header-background">
-    <div class="top-icons">
-      <div class="hamburger" id="hamburger" onclick="hamburgerExpand(this)">
-        left-nav
+  <div class="header-nav">
+    <div class="toolbarNames">
+      <div class="nav-button" id="nav-button" onclick="navExpand(this)">
+        <image src="../pictures/nav.png" class="nav-pic"></image>
+      </div>
+       <div class="pageName" id="appHeader">
+        Routine
       </div>
     </div>
-    <div class="logo-container" id="appHeader">
-    logo 
-    </div>
   </div>
-  <script src="../model/toolbar.js"></script>
   <script src="../controller/toolbarCtlr.js"></script>
 
 
 
   <div ng-app="cardDemo2" ng-controller="AppCtrl" data-ng-init="load()">
-	  <md-content style="overflow: auto; height: 80%;" class="md-padding" layout-padding="auto">
+	  <md-content style="overflow: auto; height: 80%;background-color:#FFF9C4;" class="md-padding" layout-padding="auto">
+      <md-button ng-click="show()" class="md-raised" style="left: 30%;background-color:#F9A825;color:white;">
+           refresh
+        </md-button>
       <div class="cardbase" ng-repeat="y in routinenames" layout="column">
 
-      <md-card md-theme="{{ showDarkTheme ? 'dark-grey' : 'default' }}" md-theme-watch>
+      <md-card style="width:260px;margin:0 auto;background-color:#FFFDE7;" md-theme="{{ showDarkTheme ? 'dark-grey' : 'default' }}" md-theme-watch>
         <md-card-title>
           <md-card-title-text>
             <span class="md-headline" ng-cloak>{{y.DeviceId}}</span>
@@ -58,14 +63,12 @@
           </md-card-title-media>
         </md-card-title>
         <md-card-actions layout="row" layout-align="end center">
-          <md-button ng-click="chooseRoutine(y)" href="routineDetails.html">Details</md-button>
-          <md-button>Delete</md-button>
+          <md-button style="background-color: #FFEE58;" href="routineDetails.html"  ng-click="chooseRoutine(y)" >Details</md-button>
+          <hr>
+          <md-button style="background-color: #FFEE58;">Delete</md-button>
         </md-card-actions>
       </md-card>
     </div>
-      <md-button ng-click="show()" class="md-raised" class="md-button">
-           refresh
-        </md-button>
   </md-content>
 </div>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.2/angular.min.js"></script>

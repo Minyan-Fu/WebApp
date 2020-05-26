@@ -1,46 +1,98 @@
-mapboxgl.accessToken = 'pk.eyJ1IjoibWlueWFuZnUiLCJhIjoiY2s3MHF6bGx1MDAwODNsdWc4NWpwOGk3ZiJ9.-JNfNcvmZrtGg7MWh0F4fw';
-var map = new mapboxgl.Map({
-container: 'map',
-style: 'mapbox://styles/mapbox/streets-v11',
-center: [-122.486052, 37.830348],
-zoom: 15
+angular.module('homeButtons', ['ngMaterial'])
+.controller('AppCtrl', function($scope,$http,$filter) {
+	var url = 'https://wanderdrone.appspot.com/';
+	var request = new XMLHttpRequest();
+	var arraypoint=[];
+	var arraytimestamp=[];
+
+	$scope.start=function(){
+	let intervalId = window.setInterval(function() {
+	// make a GET request to parse the GeoJSON at the url
+	request.open('GET', url, true);
+	request.onload = function() {
+	if (this.status >= 200 && this.status < 400) {
+	// retrieve the JSON from the response
+	var json = JSON.parse(this.response);
+	var timestamp = (new Date()).valueOf();
+	arraypoint.push(json.geometry.coordinates);
+	arraytimestamp.push(timestamp);
+	console.log(arraypoint,arraytimestamp);
+	}
+	};
+	request.send();
+	}, 2000);  
+
+	$scope.end=function(){
+		window.clearInterval(intervalId);
+		console.log(arraypoint,arraytimestamp);
+		for(var i=0;i<arraypoint.length;i++){
+			var deviceId=localStorage.getItem("nowId");
+	    	console.log(deviceId);
+			geturl=null;
+			timestamp=$filter("date")(arraytimestamp[i], "yyyy-MM-dd HH:mm:ss");
+			geturl="?timestamp="+timestamp+"&point=POINT("+arraypoint[i]+")&deviceId="+deviceId;
+			console.log(geturl);
+			var url = "http://192.168.137.1:8080/DBCon/addRecordServlet" + geturl;
+			console.log(url);
+			$http.get(url).then(function success(response){
+        	console.log(response.data);
+        	if(response.data=="insert successfully"){
+				console.log("insert a new record.");
+        	}
+       	 	else{
+          		console.log("try again");
+       		 }
+      		},function error(response){
+        	console.log("error");
+     		 });
+		}
+		
+
+	};
+	};
+
+	mapboxgl.accessToken = 'pk.eyJ1IjoibWlueWFuZnUiLCJhIjoiY2s3MHF6bGx1MDAwODNsdWc4NWpwOGk3ZiJ9.-JNfNcvmZrtGg7MWh0F4fw';
+		var map = new mapboxgl.Map({
+		container: 'map',
+		style: 'mapbox://styles/mapbox/streets-v11',
+		zoom: 0
+		});
+ 
+var url = 'https://wanderdrone.appspot.com/';
+map.on('load', function() {	
+var request = new XMLHttpRequest();
+window.setInterval(function() {
+// make a GET request to parse the GeoJSON at the url
+request.open('GET', url, true);
+request.onload = function() {
+if (this.status >= 200 && this.status < 400) {
+// retrieve the JSON from the response
+var json = JSON.parse(this.response);
+ 
+// update the drone symbol's location on the map
+map.getSource('drone').setData(json);
+ 
+// fly the map to the drone's current location
+map.flyTo({
+center: json.geometry.coordinates,
+speed: 0.5
 });
- 
-var radius = 0.01;
- 
-function pointOnCircle(angle) {
-return {
-'type': 'Point',
-'coordinates': [Math.cos(angle) * radius-122.486052, Math.sin(angle) * radius+37.830348]
+}
 };
-}
+request.send();
+}, 2000);
  
-map.on('load', function() {
-// Add a source and layer displaying a point which will be animated in a circle.
-map.addSource('point', {
-'type': 'geojson',
-'data': pointOnCircle(0)
-});
- 
+map.addSource('drone', { type: 'geojson', data: url });
 map.addLayer({
-'id': 'point',
-'source': 'point',
-'type': 'circle',
-'paint': {
-'circle-radius': 5,
-'circle-color': '#007cbf'
+'id': 'drone',
+'type': 'symbol',
+'source': 'drone',
+'layout': {
+'icon-image': 'rocket-15'
 }
 });
- 
-function animateMarker(timestamp) {
-// Update the data to a new position based on the animation timestamp. The
-// divisor in the expression `timestamp / 1000` controls the animation speed.
-map.getSource('point').setData(pointOnCircle(timestamp / 1000));
- 
-// Request the next frame of the animation.
-requestAnimationFrame(animateMarker);
-}
- 
-// Start the animation.
-animateMarker(0);
 });
+
+});
+
+

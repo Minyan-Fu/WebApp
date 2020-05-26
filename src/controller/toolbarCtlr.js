@@ -1,42 +1,44 @@
-function hamburgerExpand(x){
-  var crosses = document.getElementsByClassName("hamburger");
-  var modal = document.getElementById("hamburger-modal");
+var body = document.getElementsByTagName("BODY")[0];
+var firstClickModel = false;
+function navExpand(x){
+  var crosses = document.getElementsByClassName("nav-button");
+  var model = document.getElementById("toolbar-model");
 
-    if (firstClickModal === false){
+    if (firstClickModel === false){
       for (i=0;i < crosses.length; i++){
         crosses[i].classList.toggle("change");
         }
-      modal.classList.toggle("none");
-      firstClickModal = true;
+      model.classList.toggle("none");
+      firstClickModel = true;
     } else {
       for (i=0;i < crosses.length; i++){
         crosses[i].classList.toggle("change");
         }
       if (x.getAttribute("data-close") !== null){
-        x.parentNode.parentNode.parentNode.classList.toggle("menu-of-hamburger-inactive");
+        x.parentNode.parentNode.parentNode.classList.toggle("nav-menu-inactive");
         setTimeout(function(){
-          x.parentNode.parentNode.parentNode.classList.toggle("menu-of-hamburger-inactive");
-          modal.classList.toggle("none");
+          x.parentNode.parentNode.parentNode.classList.toggle("nav-menu-inactive");
+          model.classList.toggle("none");
         }, 140);
-        firstClickModal = false;
+        firstClickModel = false;
       }
     }
 }
-//Hamburger close
-window.onclick = function(event) {
-  var crosses = document.getElementsByClassName("hamburger");
-  var modal = document.getElementById("hamburger-modal");
 
-  if (event.target == modal) {
+window.onclick = function(event) {
+  var crosses = document.getElementsByClassName("nav-button");
+  var model = document.getElementById("toolbar-model");
+
+  if (event.target == model) {
     for (i=0;i < crosses.length; i++){
       crosses[i].classList.toggle("change");
       }
-      modal.classList.toggle("menu-of-hamburger-inactive");
+      model.classList.toggle("nav-menu-inactive");
       setTimeout(function(){
-        modal.classList.toggle("menu-of-hamburger-inactive");
-        modal.classList.toggle("none");
+        model.classList.toggle("nav-menu-inactive");
+        model.classList.toggle("none");
       }, 140);
-      firstClickModal = false;
+      firstClickModel = false;
   }
 }
 

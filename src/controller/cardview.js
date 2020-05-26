@@ -1,6 +1,6 @@
-angular.module('cardDemo1', ['ngMaterial'])
+angular.module('DeviceCards', ['ngMaterial'])
 
-.controller('AppCtrl', function($scope,$http) {
+.controller('DeviceCardsCtrl', function($scope,$http) {
   
   $scope.names=[];
 
@@ -29,6 +29,15 @@ angular.module('cardDemo1', ['ngMaterial'])
   $scope.chooseTime=function(x){
     localStorage.setItem("nowId",x.DeviceName);
     console.log(localStorage.getItem("nowId"));
+  };
+
+  $scope.track=function(x){
+  localStorage.setItem("nowId",x.DeviceName);
+  }
+
+
+  $scope.addDevice=function(){
+    window.location.href='addDevice.html';
   };
 
 })
