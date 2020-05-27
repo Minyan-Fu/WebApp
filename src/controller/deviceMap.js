@@ -73,6 +73,11 @@ zoom: 15
 map.on('load', function() {
 	var read=JSON.parse(localStorage.getItem('coordinates'));
 	console.log(read);
+
+	map.flyTo({
+		center: read[0],
+		essential: true // this animation is considered essential with respect to prefers-reduced-motion
+	});
 map.addSource('route', {
 'type': 'geojson',
 'data': {
