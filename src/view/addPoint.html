@@ -1,0 +1,55 @@
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>add Point page</title>
+	<link rel="stylesheet" type="text/css" href="style.css">
+  <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.9/angular-material.min.css">
+</head>
+
+<body>
+  <div class="header-nav">
+    <div class="toolbarNames">
+      <div class="nav-button" id="nav-button" onclick="reset();">
+        <script>
+          function reset(){
+            localStorage.setItem("pointsfeatures","");
+            window.location.href='routineDetails.html';
+        }
+       </script>
+            	<image src="../pictures/back (1).png" class="back-button"></image>
+        	</div>
+
+       <div class="pageName" id="appHeader">
+        Points Detail
+      </div>
+    </div>
+  </div>
+
+
+
+<div ng-app="addPoints" ng-controller="addPointsCtlr" layout="column" layout-padding ng-cloak>
+  <br/>
+  <md-content class="md-no-momentum" style="background-color:#FFF9C4;box-shadow: 2px 1px 10px rgba(0.25, 0, 0, 0.25);width:280px;margin:0 auto;">
+    <md-input-container class="md-icon-float md-block">
+      <!-- Use floating label instead of placeholder -->
+      <label>Point Description</label>
+      <input ng-model="point.description" type="text">
+      <span ng-if="checkData.nameCheck=='m'">name cannot be null</span>
+    </md-input-container>
+     <p id="p2" style="text-align: center;font-family: 'Times New Roman', Times, serif;color: #BF360C;">Give a description to the point</p>
+  <div float>
+	<md-button ng-click="addPoint()" class="md-raised" style="left: 30%;background-color:#F9A825;color:white;"  >
+           Add
+	</md-button>
+  </div>
+  </md-content>
+</div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.2/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.2/angular-animate.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.2/angular-aria.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.2/angular-messages.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.9/angular-material.min.js"></script>
+    <script src="../controller/addPoint.js"></script>
+  </body>
