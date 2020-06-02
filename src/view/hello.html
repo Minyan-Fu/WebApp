@@ -46,12 +46,14 @@
   <script src="../controller/toolbarCtlr.js"></script>
 
   <div ng-app="homeButtons" ng-controller="AppCtrl">
-    <md-button ng-click="start()" class="md-raised" style="left: 15%;background-color:#F9A825;color:white;">
+    <div layout="row">
+    <md-button ng-click="start()" class="md-raised" style="margin: 0 auto;margin-top:5%;background-color:#F9A825;color:white;">
       Start
     </md-button>
-    <md-button ng-click="end()" class="md-raised" style="left: 15%;background-color:#F9A825;color:white;">
+    <md-button ng-click="end()" class="md-raised" style="margin: 0 auto;margin-top:5%;background-color:#F9A825;color:white;">
       End
     </md-button>
+    </div>
   </div>
   <div id="map"></div>
   <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.2/angular.min.js"></script>

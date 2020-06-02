@@ -44,13 +44,15 @@
 
 
  <div ng-app="DeviceCards" ng-controller="DeviceCardsCtrl" data-ng-init="load()">
-	  <md-content style="overflow: auto; height: 80%;background-color:#FFF9C4;" class="md-padding" layout-padding="auto">
-       <md-button ng-click="show()" class="md-raised" style="left: 10%;background-color:#F9A825;color:white;">
+    <md-content style="overflow: auto;height: 80%;margin:0 auto;background-color:#FFF9C4;" class="md-padding" layout-padding="auto">
+       <div layout="row">
+      <md-button ng-click="show()" class="md-raised" style="margin:0 auto;background-color:#F9A825;color:white;">
            refresh
         </md-button>
-        <md-button ng-click="addDevice()" class="md-raised" style="left: 15%;background-color:#F9A825;color:white;">
+        <md-button ng-click="addDevice()" class="md-raised" style="margin:0 auto;background-color:#F9A825;color:white;">
            add
-        </md-button>
+          </md-button>
+        </div>
       <div class="cardbase" ng-repeat="x in names" layout="column">
 
       <md-card style="width:260px;margin:0 auto;background-color:#FFFDE7;" md-theme="{{ showDarkTheme ? 'dark-grey' : 'default' }}" md-theme-watch>

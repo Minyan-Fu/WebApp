@@ -66,7 +66,8 @@ angular.module('LoginPanel', ['ngMaterial', 'ngMessages'])
         console.log(response.data);
         if(response.data=="200:success"){
         $scope.visible=false;
-        document.getElementById("usermes").innerHTML="register successfully!";
+        document.getElementById("usermes").innerHTML=" ";
+        document.getElementById("p2").innerHTML="register successfully!";
         }
         else{
           $scope.visible=true;

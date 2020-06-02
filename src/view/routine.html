@@ -45,11 +45,12 @@
 
   <div ng-app="cardDemo2" ng-controller="AppCtrl" data-ng-init="load()">
 	  <md-content style="overflow: auto; height: 80%;background-color:#FFF9C4;" class="md-padding" layout-padding="auto">
-      <md-button ng-click="show()" class="md-raised" style="left: 30%;background-color:#F9A825;color:white;">
+     <div layout="row">
+      <md-button ng-click="show()" class="md-raised" style="margin:0 auto;background-color:#F9A825;color:white;">
            refresh
         </md-button>
+            </div>
       <div class="cardbase" ng-repeat="y in routinenames" layout="column">
-
       <md-card style="width:260px;margin:0 auto;background-color:#FFFDE7;" md-theme="{{ showDarkTheme ? 'dark-grey' : 'default' }}" md-theme-watch>
         <md-card-title>
           <md-card-title-text>

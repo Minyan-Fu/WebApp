@@ -6,12 +6,11 @@ angular.module('homeButtons', ['ngMaterial'])
 		var arraytimestamp = [];
 
 		$scope.start = function () {
+			alert("start recording");
 			let intervalId = window.setInterval(function () {
-				// make a GET request to parse the GeoJSON at the url
 				request.open('GET', url, true);
 				request.onload = function () {
 					if (this.status >= 200 && this.status < 400) {
-						// retrieve the JSON from the response
 						var json = JSON.parse(this.response);
 						var timestamp = (new Date()).valueOf();
 						arraypoint.push(json.geometry.coordinates);
@@ -46,8 +45,7 @@ angular.module('homeButtons', ['ngMaterial'])
 						console.log("error");
 					});
 				}
-
-
+				alert("insert "+arraypoint.length+ " records into database");
 			};
 		};
 
@@ -62,17 +60,11 @@ angular.module('homeButtons', ['ngMaterial'])
 		map.on('load', function () {
 			var request = new XMLHttpRequest();
 			window.setInterval(function () {
-				// make a GET request to parse the GeoJSON at the url
 				request.open('GET', url, true);
 				request.onload = function () {
 					if (this.status >= 200 && this.status < 400) {
-						// retrieve the JSON from the response
 						var json = JSON.parse(this.response);
-
-						// update the drone symbol's location on the map
-						map.getSource('drone').setData(json);
-
-						// fly the map to the drone's current location
+						map.getSource('asset').setData(json);
 						map.flyTo({
 							center: json.geometry.coordinates,
 							speed: 0.5
@@ -82,11 +74,11 @@ angular.module('homeButtons', ['ngMaterial'])
 				request.send();
 			}, 2000);
 
-			map.addSource('drone', { type: 'geojson', data: url });
+			map.addSource('asset', { type: 'geojson', data: url });
 			map.addLayer({
-				'id': 'drone',
+				'id': 'asset',
 				'type': 'symbol',
-				'source': 'drone',
+				'source': 'asset',
 				'layout': {
 					'icon-image': 'rocket-15'
 				}
