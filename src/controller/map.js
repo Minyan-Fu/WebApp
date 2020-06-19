@@ -1,28 +1,38 @@
 angular.module('homeButtons', ['ngMaterial'])
 	.controller('AppCtrl', function ($scope, $http, $filter) {
-		var url = 'https://wanderdrone.appspot.com/';
-		var request = new XMLHttpRequest();
 		var arraypoint = [];
 		var arraytimestamp = [];
 
 		$scope.start = function () {
 			alert("start recording");
-			let intervalId = window.setInterval(function () {
-				request.open('GET', url, true);
-				request.onload = function () {
-					if (this.status >= 200 && this.status < 400) {
-						var json = JSON.parse(this.response);
-						var timestamp = (new Date()).valueOf();
-						arraypoint.push(json.geometry.coordinates);
-						arraytimestamp.push(timestamp);
-						console.log(arraypoint, arraytimestamp);
+			//delete
+			d3.json(
+				'https://docs.mapbox.com/mapbox-gl-js/assets/hike.geojson',
+				function (err, data) {
+					if (err) throw err;
+					var coordinates = data.features[0].geometry.coordinates;
+					data.features[0].geometry.coordinates = [coordinates[0]];
+					var i = localStorage.getItem("nowValue");
+					var timer = window.setInterval(function () {
+					if (i < coordinates.length) {
+							data.features[0].geometry.coordinates.push(
+								coordinates[i]
+							);
+							var timestamp = (new Date()).valueOf();
+							arraypoint.push(coordinates[i]);
+							arraytimestamp.push(timestamp);
+							i++;
+						} else {
+							window.clearInterval(timer);
+						}
+					}, 100);
 					}
-				};
-				request.send();
-			}, 2000);
+			);
+			//delete
+
+
 
 			$scope.end = function () {
-				window.clearInterval(intervalId);
 				console.log(arraypoint, arraytimestamp);
 				for (var i = 0; i < arraypoint.length; i++) {
 					var deviceId = localStorage.getItem("nowId");
@@ -45,7 +55,8 @@ angular.module('homeButtons', ['ngMaterial'])
 						console.log("error");
 					});
 				}
-				alert("insert "+arraypoint.length+ " records into database");
+				alert("insert " + arraypoint.length + " records into database");
+				window.location.href = "hello.html";
 			};
 		};
 
@@ -56,35 +67,54 @@ angular.module('homeButtons', ['ngMaterial'])
 			zoom: 0
 		});
 
-		var url = 'https://wanderdrone.appspot.com/';
 		map.on('load', function () {
-			var request = new XMLHttpRequest();
-			window.setInterval(function () {
-				request.open('GET', url, true);
-				request.onload = function () {
-					if (this.status >= 200 && this.status < 400) {
-						var json = JSON.parse(this.response);
-						map.getSource('asset').setData(json);
-						map.flyTo({
-							center: json.geometry.coordinates,
-							speed: 0.5
-						});
-					}
-				};
-				request.send();
-			}, 2000);
+			// We use D3 to fetch the JSON here so that we can parse and use it separately
+			// from GL JS's use in the added source. You can use any request method (library
+			// or otherwise) that you want.
+			d3.json(
+				'https://docs.mapbox.com/mapbox-gl-js/assets/hike.geojson',
+				function (err, data) {
+					if (err) throw err;
 
-			map.addSource('asset', { type: 'geojson', data: url });
-			map.addLayer({
-				'id': 'asset',
-				'type': 'symbol',
-				'source': 'asset',
-				'layout': {
-					'icon-image': 'rocket-15'
+					// save full coordinate list for later
+					var coordinates = data.features[0].geometry.coordinates;
+
+					// start by showing just the first coordinate
+					data.features[0].geometry.coordinates = [coordinates[0]];
+
+					// add it to the map
+					map.addSource('trace', { type: 'geojson', data: data });
+					map.addLayer({
+						'id': 'trace',
+						'type': 'line',
+						'source': 'trace',
+						'paint': {
+							'line-color': 'yellow',
+							'line-opacity': 0.75,
+							'line-width': 5
+						}
+					});
+
+					// setup the viewport
+					map.jumpTo({ 'center': coordinates[0], 'zoom': 14 });
+					map.setPitch(30);
+
+					// on a regular basis, add more coordinates from the saved list and update the map
+					var i = 0;
+					var timer = window.setInterval(function () {
+						if (i < coordinates.length) {
+							data.features[0].geometry.coordinates.push(
+								coordinates[i]
+							);
+							map.getSource('trace').setData(data);
+							map.panTo(coordinates[i]);
+							localStorage.setItem("nowValue",i);
+							i++;
+						} else {
+							window.clearInterval(timer);
+						}
+					}, 100);
 				}
-			});
+			);
 		});
-
-	});
-
-
+	})

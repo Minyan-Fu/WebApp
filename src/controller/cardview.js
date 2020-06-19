@@ -4,6 +4,7 @@ angular.module('DeviceCards', ['ngMaterial'])
   
   $scope.names=[];
 
+
   $scope.show=function(){
     console.log("get","running3");
     var getData="?userId="+localStorage.getItem("userId");
@@ -39,6 +40,18 @@ angular.module('DeviceCards', ['ngMaterial'])
   $scope.addDevice=function(){
     window.location.href='addDevice.html';
   };
+
+  $scope.delete=function(x){
+    localStorage.setItem("nowId",x.DeviceName);
+    var getData="?deviceId="+localStorage.getItem("nowId");
+    var url = "http://192.168.137.1:8080/DBCon/deleteDeviceServlet" + getData;
+     $http.get(url).then(function success(response){
+    console.log(response.data);
+    },function error(response){
+        console.log("error");
+    });
+    window.location.href='device.html';
+  }
 
 })
 .config(function($mdThemingProvider) {

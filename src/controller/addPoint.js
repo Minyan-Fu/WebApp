@@ -8,6 +8,10 @@ angular.module('addPoints', ['ngMaterial', 'ngMessages'])
       description: ''
     };
 
+    $scope.testData = {
+      i:""
+    };
+
     $scope.checkName = function () {
       if ($scope.point.description) {
         $scope.checkData.nameCheck = "r";
@@ -34,9 +38,11 @@ angular.module('addPoints', ['ngMaterial', 'ngMessages'])
         $http.get(url).then(function success(response) {
           console.log(response.data);
           if (response.data == "insert successfully") {
+            $scope.testData.i="insert successfully! Please wait for redirecting.";
             document.getElementById("p2").innerHTML = "insert successfully!";
           }
           else {
+              $scope.testData.i="error.";
             $scope.visible = true;
             document.getElementById("p2").innerHTML = "please try again";
           }

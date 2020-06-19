@@ -1,5 +1,9 @@
 angular.module('saveBotton', ['ngMaterial'])
 	.controller('SaveCtrl', function ($scope, $http, $filter) {
+		$scope.testData={
+			i:""
+		};
+		
 		$scope.show = function () {
 			var DeviceId = localStorage.getItem("nowId");
 			var UserId = localStorage.getItem("userId");
@@ -13,6 +17,7 @@ angular.module('saveBotton', ['ngMaterial'])
 			console.log(DeviceId, UserId, startTime, endTime);
 			var getData = "?startTime=" + startTime + "&" + "endTime=" + endTime + "&deviceId=" + DeviceId;
 			var url = "http://192.168.137.1:8080/DBCon/showRoutineServlet" + getData;
+			console.log(url);
 			$http.get(url).then(function success(response) {
 				console.log(response.data);
 				if (response.data == "") {
@@ -53,7 +58,8 @@ angular.module('saveBotton', ['ngMaterial'])
 			$http.get(url).then(function success(response) {
 				console.log(response.data);
 				if (response.data=="success"){
-					alert("save successfully");
+					//alert("save successfully");
+					$scope.testData.i="success";
 				}
 			});
 		};

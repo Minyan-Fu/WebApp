@@ -1,9 +1,9 @@
-angular.module('cardDemo2', ['ngMaterial'])
+angular.module('RoutineCards', ['ngMaterial'])
 
-.controller('AppCtrl', function($scope,$http) { 
+.controller('RoutineCardsCtlr', function($scope,$http) { 
   $scope.routinenames=[];
 
-  $scope.show=function(){
+  $scope.show2=function(){
     console.log("get","running3");
     var getData="?userId="+localStorage.getItem("userId");
     var url = "http://192.168.137.1:8080/DBCon/RoutineServlet" + getData;
@@ -33,6 +33,21 @@ angular.module('cardDemo2', ['ngMaterial'])
     localStorage.setItem("routineId",routineId2[1]);
     localStorage.setItem("nowId",deviceId);
   };
+
+  $scope.delete=function(y){
+    var routineId=y.DeviceId.toString();
+    var routineId2=routineId.replace(")","").split("(");
+    localStorage.setItem("routineId",routineId2[1]);
+    console.log(localStorage.getItem("routineId"));
+    var getData="?routineId="+localStorage.getItem("routineId");
+    var url = "http://192.168.137.1:8080/DBCon/deleteRoutineServlet" + getData;
+     $http.get(url).then(function success(response){
+    console.log(response.data);
+    },function error(response){
+        console.log("error");
+    });
+    window.location.href='routine.html';
+  }
 
 })
 .config(function($mdThemingProvider) {

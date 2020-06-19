@@ -93,13 +93,21 @@ angular.module('showBotton', ['ngMaterial'])
 				}
 			});
 
+		map.loadImage(
+			'../pictures/Marker.png',
+		function(error, image) {
+		if (error) throw error;
+		map.addImage('orange', image);
+
+
 			map.addLayer({
 				'id': 'points',
-				'type': 'circle',
+				'type': 'symbol',
 				'source': 'points',
-				'paint': {
-					'circle-radius': 8,
-					'circle-color': '#000'
+				'layout': {
+					'icon-image': 'orange',
+					'icon-size':0.8,
+					'icon-anchor':'bottom'
 				}
 			});
 
@@ -118,12 +126,10 @@ angular.module('showBotton', ['ngMaterial'])
 					.addTo(map);
 			});
 
-			// Change the cursor to a pointer when the mouse is over the places layer.
 			map.on('mouseenter', 'points', function () {
 				map.getCanvas().style.cursor = 'pointer';
 			});
 
-			// Change it back to a pointer when it leaves.
 			map.on('mouseleave', 'points', function () {
 				map.getCanvas().style.cursor = '';
 			});//delete
@@ -182,9 +188,8 @@ angular.module('showBotton', ['ngMaterial'])
 				marker.on('dragend', onDragEnd);
 			};
 
-			$scope.edit = function () {
-
-			}
+		}
+		);
 
 		});
 	})
