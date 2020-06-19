@@ -1,0 +1,352 @@
+<html>
+
+<head>
+	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/jasmine/2.3.3/jasmine.min.css">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jasmine/2.3.3/jasmine.min.js"></script>
+	<script type="text/javascript"
+		src="https://cdnjs.cloudflare.com/ajax/libs/jasmine/2.3.3/jasmine-html.min.js"></script>
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jasmine/2.3.3/boot.min.js"></script>
+</head>
+
+<body>
+		<div style="visibility: hidden;"  id="p2">qwq</div>
+		<div style="visibility: hidden;"  id="usermes">qwq</div>
+</body>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.2/angular.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.2/angular-animate.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.2/angular-mocks.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.2/angular-aria.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.2/angular-messages.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.9/angular-material.min.js"></script>
+<script src="controller/addCtlr.js"></script>
+<script src="controller/addPoint.js"></script>
+<script src="controller/cardview.js"></script>
+<script src="controller/loginCtlr.js"></script>
+<script src="controller/routineview.js"></script>
+<script src="controller/deviceMap.js"></script>
+
+				
+<script type="text/javascript">
+	//add Device test
+	//please annote delay part in add device part first.
+	//Otherwise the page will jump to device.html
+	describe('add Device Name Test', function () {
+
+		beforeEach(angular.mock.module('addDevice'));
+
+		beforeEach(angular.mock.inject(function ($injector) {
+			$controller = $injector.get('$controller');
+		    $httpBackend=$injector.get("$httpBackend");
+			$scope=$injector.get("$rootScope");
+
+			$httpBackend.whenGET('http://192.168.137.1:8080/DBCon/addDeviceServlet?deviceName=1&userId=1').respond("insert successfully");
+			$httpBackend.whenGET('http://192.168.137.1:8080/DBCon/addDeviceServlet?deviceName=2&userId=2').respond("error.");
+
+			createController = function () {
+				return $controller('MyController', { '$scope': $rootScope});
+			};
+
+		}));
+
+		describe('check intent', function () {
+			it('when it has input', function () {
+				var $scope = {};
+				var controller = $controller('addDeviceCtlr', { $scope: $scope });
+				$scope.device.name = 1;
+				$scope.checkName();
+				expect($scope.checkData.nameCheck).toBe('r');
+			});
+			it('when it is null', function () {
+				var $scope = {};
+				var controller = $controller('addDeviceCtlr', { $scope: $scope });
+				$scope.device.name = null;
+				$scope.checkName();
+				expect($scope.checkData.nameCheck).toBe('m');
+			});
+		});
+
+		describe('insert into database', function () {
+			it('when insert successfully', function () {
+				var controller = $controller('addDeviceCtlr', { $scope: $scope });
+				$scope.device.name=1;
+				localStorage.setItem("userId",1);
+				$scope.generate();
+				$httpBackend.flush();
+        		expect($scope.testData.i).toBe("insert successfully! Please wait for redirecting.");
+			});
+
+			it('when error', function () {
+				var controller = $controller('addDeviceCtlr', { $scope: $scope });
+				localStorage.setItem("userId",2);
+				$scope.device.name=2;
+				$scope.generate();
+				$httpBackend.flush();
+        		expect($scope.testData.i).toBe("error.");
+			});
+		});
+
+	});
+
+	//add points test
+	describe('add Point Test', function () {
+
+		beforeEach(angular.mock.module('addPoints'));
+
+		beforeEach(angular.mock.inject(function ($injector) {
+			$controller = $injector.get('$controller');
+		    $httpBackend=$injector.get("$httpBackend");
+			$scope=$injector.get("$rootScope");
+
+			$httpBackend.whenGET('http://192.168.137.1:8080/DBCon/addPointServlet?location=POINT(1,1)&routineId=1&content=1').respond("insert successfully");
+			$httpBackend.whenGET('http://192.168.137.1:8080/DBCon/addPointServlet?location=POINT(1,1)&routineId=2&content=1').respond("error.");
+
+			createController = function () {
+				return $controller('MyController', { '$scope': $rootScope});
+			};
+
+		}));
+
+		describe('check intent', function () {
+			it('when it has input', function () {
+				var $scope = {};
+				var controller = $controller('addPointsCtlr', { $scope: $scope });
+				$scope.point.description = 1;
+				$scope.checkName();
+				expect($scope.checkData.nameCheck).toBe('r');
+			});
+			it('when it is null', function () {
+				var $scope = {};
+				var controller = $controller('addPointsCtlr', { $scope: $scope });
+				$scope.point.description = null;
+				$scope.checkName();
+				expect($scope.checkData.nameCheck).toBe('m');
+			});
+		});
+
+		describe('insert into database', function () {
+			it('when insert successfully', function () {
+				var controller = $controller('addPointsCtlr', { $scope: $scope });
+				$scope.point.description=1;
+				localStorage.setItem("routineId",1);
+				localStorage.setItem("nowLatitude",1);
+				localStorage.setItem("nowLongitude",1);
+				$scope.addPoint();
+				$httpBackend.flush();
+        		expect($scope.testData.i).toBe("insert successfully! Please wait for redirecting.");
+			});
+
+			it('when error', function () {
+				var controller = $controller('addPointsCtlr', { $scope: $scope });
+				$scope.point.description=1;
+				localStorage.setItem("routineId",2);
+				localStorage.setItem("nowLatitude",1);
+				localStorage.setItem("nowLongitude",1);
+				$scope.addPoint();
+				$httpBackend.flush();
+        		expect($scope.testData.i).toBe("error.");
+			});
+		});
+	});
+
+	//device card view test
+	describe('Device card view test', function () {
+
+		beforeEach(angular.mock.module('DeviceCards'));
+
+		beforeEach(angular.mock.inject(function ($injector) {
+			$controller = $injector.get('$controller');
+		    $httpBackend=$injector.get("$httpBackend");
+			$scope=$injector.get("$rootScope");
+
+			$httpBackend.whenGET('http://192.168.137.1:8080/DBCon/DeviceServlet?userId=1').respond("[{DeviceName:12, DeviceId:apple}]");
+
+			createController = function () {
+				return $controller('MyController', { '$scope': $rootScope});
+			};
+
+		}));
+
+		describe('show function', function () {
+			it('when get Name and id', function () {
+				var $scope = {};
+				var controller = $controller('DeviceCardsCtrl', { $scope: $scope });
+				localStorage.setItem("userId",1);
+				$scope.show();
+				$httpBackend.flush();
+				expect($scope.names[0]).toEqual({ DeviceName: '12', DeviceId: 'apple' });
+			});
+		});
+
+		
+	});
+
+	//login panel test
+	describe('Device card view test', function () {
+
+		beforeEach(angular.mock.module('LoginPanel'));
+
+		beforeEach(angular.mock.inject(function ($injector) {
+			$controller = $injector.get('$controller');
+		    $httpBackend=$injector.get("$httpBackend");
+			$scope=$injector.get("$rootScope");
+
+			$httpBackend.whenGET('http://192.168.137.1:8080/DBCon/LoginServlet?account=1&password=1').respond("200:login successfully");
+            $httpBackend.whenGET('http://192.168.137.1:8080/DBCon/idGetServlet?userName=1').respond(1);
+			$httpBackend.whenGET('http://192.168.137.1:8080/DBCon/RegisterServlet?account=1&password=1').respond("200:success");
+			$httpBackend.whenGET('http://192.168.137.1:8080/DBCon/RegisterServlet?account=2&password=1').respond("error.");
+			createController = function () {
+				return $controller('MyController', { '$scope': $rootScope});
+			};
+
+		}));
+
+		describe('check intent', function () {
+			it('when it has input', function () {
+				var $scope = {};
+				var controller = $controller('LoginPanelCtrl', { $scope: $scope });
+				$scope.user.name = 1;
+				$scope.checkName();
+				expect($scope.checkData.nameCheck).toBe('r');
+			});
+			it('when it is null', function () {
+				var $scope = {};
+				var controller = $controller('LoginPanelCtrl', { $scope: $scope });
+				$scope.user.name = null;
+				$scope.checkName();
+				expect($scope.checkData.nameCheck).toBe('m');
+			});
+		});
+
+		describe('check intent', function () {
+			it('when it has input', function () {
+				var $scope = {};
+				var controller = $controller('LoginPanelCtrl', { $scope: $scope });
+				$scope.user.password = 1;
+				$scope.checkName();
+				expect($scope.checkData.nameCheck).toBe('m');
+			});
+			it('when it is null', function () {
+				var $scope = {};
+				var controller = $controller('LoginPanelCtrl', { $scope: $scope });
+				$scope.user.password = null;
+				$scope.checkPassword();
+				expect($scope.checkData.nameCheck).toBe('k');
+			});
+		});
+
+		describe('login function', function () {
+			it('when get Name and id', function () {
+				var $scope = {};
+				var controller = $controller('LoginPanelCtrl', { $scope: $scope });
+				$scope.user.name=1;
+				$scope.user.password=1;
+				$scope.login();
+				$httpBackend.flush();
+				expect(localStorage.getItem("userId")).toBe('1');
+			});
+		});
+
+		describe('register function', function () {
+			it('when register successfully', function () {
+				var $scope = {};
+				var controller = $controller('LoginPanelCtrl', { $scope: $scope });
+				$scope.user.name=1;
+				$scope.user.password=1;
+				$scope.register();
+				$httpBackend.flush();
+				expect($scope.visible).toBe(false);
+			});
+
+			it('when name has been in the DB', function () {
+				var $scope = {};
+				var controller = $controller('LoginPanelCtrl', { $scope: $scope });
+				$scope.user.name=2;
+				$scope.user.password=1;
+				$scope.register();
+				$httpBackend.flush();
+				expect($scope.visible).toBe(true);
+			});
+		});
+	});
+
+	//device card view test
+	describe('Routine card view test', function () {
+
+		beforeEach(angular.mock.module('RoutineCards'));
+
+		beforeEach(angular.mock.inject(function ($injector) {
+			$controller = $injector.get('$controller');
+		    $httpBackend=$injector.get("$httpBackend");
+			$scope=$injector.get("$rootScope");
+
+			$httpBackend.whenGET('http://192.168.137.1:8080/DBCon/RoutineServlet?userId=1').respond("[{DeviceId:1, RoutineName(Id):1}]");
+
+			createController = function () {
+				return $controller('MyController', { '$scope': $rootScope});
+			};
+
+		}));
+
+		describe('show function', function () {
+			it('when get device and routine id', function () {
+				var $scope = {};
+				var controller = $controller('RoutineCardsCtlr', { $scope: $scope });
+				localStorage.setItem("userId",1);
+				$scope.show2();
+				$httpBackend.flush();
+				expect($scope.routinenames[0]).toEqual({RoutineName: '1', DeviceId: '1' });
+			});
+		});
+	});
+
+	//device map view test
+	describe('device map test', function () {
+
+		beforeEach(angular.mock.module('saveBotton'));
+
+		beforeEach(angular.mock.inject(function ($injector) {
+			$controller = $injector.get('$controller');
+		    $httpBackend=$injector.get("$httpBackend");
+			$scope=$injector.get("$rootScope");
+
+			$httpBackend.whenGET('http://192.168.137.1:8080/DBCon/showRoutineServlet?startTime=null&endTime=null&deviceId=1').respond("[Point(1 1)]");
+			$httpBackend.whenGET('http://192.168.137.1:8080/DBCon/addRoutinesServlet?deviceId=1&userId=1&startTime=null&endTime=null&routineName=12')
+			.respond("success");
+			createController = function () {
+				return $controller('MyController', { '$scope': $rootScope});
+			};
+
+		}));
+
+		describe('show function', function () {
+			it('show a routine', function () {
+				var $scope = {};
+				var controller = $controller('SaveCtrl', { $scope: $scope });
+				localStorage.setItem("nowId",1);
+				localStorage.setItem("starttime",null);
+				localStorage.setItem("endtime",null);
+				$scope.show();
+				$httpBackend.flush();
+				expect(localStorage.getItem('coordinates')).toEqual('[["Point(1","1"]]');
+			});
+		});
+
+		describe('save function', function () {
+			it('save a routine', function () {
+				var $scope = {};
+				var controller = $controller('SaveCtrl', { $scope: $scope });
+				localStorage.setItem("userId",1);
+				localStorage.setItem("starttime",null);
+				localStorage.setItem("endtime",null);
+				localStorage.setItem("routineName",12);
+				$scope.save();
+				$httpBackend.flush();
+				expect($scope.testData.i).toEqual("success");
+			});
+		});
+	});
+
+
+</script>
+
+</html>

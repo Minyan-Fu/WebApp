@@ -4,8 +4,23 @@
   "description": "Template for project creation of HTML/CSS inside CodeMix",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test":  "karma start my.config.js"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "angular-material": "^1.1.22",
+    "angularjs": "^0.0.1"
+  },
+  "devDependencies": {
+    
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Minyan-Fu/WebApp.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Minyan-Fu/WebApp/issues"
+  },
+  "homepage": "https://github.com/Minyan-Fu/WebApp#readme"
 }
